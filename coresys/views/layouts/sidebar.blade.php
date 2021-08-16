@@ -38,20 +38,61 @@
 		</div>
 		<!-- start: MAIN NAVIGATION MENU -->
 		<ul class="main-navigation-menu">
+			
+			<li style="background: linear-gradient(to bottom, #e52d27,#b31217); color;white; height:50px">
+				<img style="float: left; margin: 10px 10px 0px 10px;" src="<?=base_url()?>assets/img/homelock.png" height="28" width="28" />
+				<span class="menu-item-parent">
+				<p class="small" style="margin: 0px 10px 0px 0px;">
+					<small style="color:white;font-size:14px; margin: 0px 0px 0px 0px; font-weight: bold;">Monitoring System</small><br>
+					<small style="color:white;font-size:10px;">Performance And Productivity</small>
+				</p>
+				</span>					
+			</li>
+			<li style="background-image: linear-gradient( 171.8deg,  rgba(5,111,146,1) 13.5%, rgba(6,57,84,1) 78.6% );">
+				<a href="#" class="zoomsmall">
+				<img style="float: left; margin: 0px 10px 0px 0px;" src="<?=base_url()?>assets/img/database.png" height="28" width="28" />
+				<span class="menu-item-parent">
+				<p class="small" style="">
+					<small style="color:white;font-size:14px; margin: 0px 0px 0px 0px; font-weight: bold;">Data Cash Handling </small><br>
+					<small style="color:white;font-size:10px;">CRM CR & CC Management</small>
+				</p>
+				</span>
+				</a>						
+				<ul>
+					<div class="" style="background-image: linear-gradient(to top, #c4c5c7 0%, #dcdddf 52%, #ebebeb 100%); height:30px; margin: 0px 0px 0px 0px;">
+						<b class="hanzicons" style="float: left; margin: 12px 5px 0px 30px;font-size:14px;color:gray;">Data Cash Replanish
+						</b>
+					</div>
+					<li>
+						<a href="<?=base_url()?>cro_master_cashreplenish" class="zoomsmall"><img style="float: left; margin: 3px 5px 0px -10px;" src="<?=base_url()?>seipkon/assets/img/pdf.png" height="15" width="15" />CRM Cash Replanish</a>
+					</li>
+					<li>
+						<a href="<?=base_url()?>cro_all_runsheets" class="zoomsmall"><img style="float: left; margin: 3px 5px 0px -10px;" src="<?=base_url()?>seipkon/assets/img/pdf.png" height="15" width="15" />All Runsheets CR</a>
+					</li>
+					<li>
+						<a href="<?=base_url()?>doccro_cr" class="zoomsmall"><img style="float: left; margin: 3px 5px 0px -10px;" src="<?=base_url()?>seipkon/assets/img/pdf.png" height="15" width="15" />CR Documentation</a>
+					</li>
+					
+				</ul>
+			</li>		
+			
+			
+			
 			<li <?=active($that, 'dashboard')?>>
-				<a href="<?=base_url()?>dashboard"><i class="fa fa-home"></i> <span class="title"> Dashboard </span><span class="label label-default pull-right ">LABEL</span> </a>
-			</li>
-			<li <?=active($that, 'user')?>>
-				<a href="<?=base_url()?>user"><i class="fa fa-user"></i> <span class="title"> Kelola Pengguna </span></a>
-			</li>
-			<li <?=active($that, 'userlevel')?>>
-				<a href="<?=base_url()?>userlevel"><i class="fa fa-users"></i> <span class="title"> Level Pengguna </span></a>
-			</li>
-			<li <?=active($that, 'pegawai')?>>
-				<a href="<?=base_url()?>pegawai"><i class="fa fa-users"></i> <span class="title"> Data Pegawai </span></a>
+				<a href="<?=base_url()?>dashboard">
+				
+				
+				<i class="fa fa-home"></i> <span class="title"> Dashboard </span><span class="label label-default pull-right ">LABEL</span> </a>
 			</li>
 			<li <?=active($that, array('paramedis', 'jabatan', 'bidang', 'poli'))?>>
-				<a href="javascript:void(0)"><i class="fa fa-credit-card"></i> <span class="title"> Data Master </span><i class="icon-arrow"></i> </a>
+				<a href="javascript:void(0)">
+				<img style="float: left; margin: 0px 10px 0px 0px;" src="<?=base_url()?>assets/img/database.png" height="28" width="28" />
+				<span class="menu-item-parent">
+				<p class="small" style="">
+					<small style="color:white;font-size:14px; margin: 0px 0px 0px 0px; font-weight: bold;">Data Master </small><br>
+					<small style="color:white;font-size:10px;">CRM CR & CC Management</small>
+				</p>
+				</span></a>
 				<ul class="sub-menu">
 					<li <?=active($that, 'paramedis')?>>
 						<a href="<?=base_url()?>paramedis">
@@ -74,6 +115,16 @@
 						</a>
 					</li>
 				</ul>
+			</li>
+
+			<li <?=active($that, 'user')?>>
+				<a href="<?=base_url()?>user"><i class="fa fa-user"></i> <span class="title"> Kelola Pengguna </span></a>
+			</li>
+			<li <?=active($that, 'userlevel')?>>
+				<a href="<?=base_url()?>userlevel"><i class="fa fa-users"></i> <span class="title"> Level Pengguna </span></a>
+			</li>
+			<li <?=active($that, 'pegawai')?>>
+				<a href="<?=base_url()?>pegawai"><i class="fa fa-users"></i> <span class="title"> Data Pegawai </span></a>
 			</li>
 			<li <?=active($that, 'dokter')?>>
 				<a href="<?=base_url()?>dokter"><i class="fa fa-user-plus"></i> <span class="title"> Data Dokter </span></a>

@@ -5,18 +5,20 @@ if (!defined('BASEPATH'))
 
 class Dataobat extends CI_Controller
 {
+	var $data = array();
     function __construct()
     {
         parent::__construct();
+		$this->data['that'] = $this;
         is_login();
         $this->load->model('Tbl_obat_model');
         $this->load->library('form_validation');        
-	$this->load->library('datatables');
+		$this->load->library('datatables');
     }
 
     public function index()
     {
-        $this->template->load('template','dataobat/tbl_obat_list');
+		return view('pages/dataobat/tbl_obat_list', $this->data);
     } 
     
     public function json() {
@@ -29,14 +31,14 @@ class Dataobat extends CI_Controller
         $row = $this->Tbl_obat_model->get_by_id($id);
         if ($row) {
             $data = array(
-		'kode_obat' => $row->kode_obat,
-		'nama_obat' => $row->nama_obat,
-		'jenis_obat' => $row->jenis_obat,
-		'dosis_aturan_obat' => $row->dosis_aturan_obat,
-        'satuan' => $row->satuan,
-
-	    );
-            $this->template->load('template','dataobat/tbl_obat_read', $data);
+				'kode_obat' => $row->kode_obat,
+				'nama_obat' => $row->nama_obat,
+				'jenis_obat' => $row->jenis_obat,
+				'dosis_aturan_obat' => $row->dosis_aturan_obat,
+				'satuan' => $row->satuan,
+			);
+			
+			return view('pages/dataobat/tbl_obat_read', $this->data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('dataobat'));
@@ -45,17 +47,15 @@ class Dataobat extends CI_Controller
 
     public function create() 
     {
-        $data = array(
-            'button' => 'Tambah',
-            'action' => site_url('dataobat/create_action'),
-	    'kode_obat' => set_value('kode_obat'),
-	    'nama_obat' => set_value('nama_obat'),
-	    'jenis_obat' => set_value('jenis_obat'),
-	    'dosis_aturan_obat' => set_value('dosis_aturan_obat'),
-        'satuan' => set_value('satuan'),
-
-	);
-        $this->template->load('template','dataobat/tbl_obat_form', $data);
+		$this->data['button'] 				= 'Tambah';
+		$this->data['action'] 				= site_url('dataobat/create_action');
+		$this->data['kode_obat'] 			= set_value('kode_obat');
+		$this->data['nama_obat'] 			= set_value('nama_obat');
+		$this->data['jenis_obat'] 			= set_value('jenis_obat');
+		$this->data['dosis_aturan_obat'] 	= set_value('dosis_aturan_obat');
+		$this->data['satuan'] 				= set_value('satuan');
+		
+		return view('pages/dataobat/tbl_obat_form', $this->data);
     }
     
     public function create_action() 
@@ -66,13 +66,12 @@ class Dataobat extends CI_Controller
             $this->create();
         } else {
             $data = array(
-        'kode_obat' => $this->input->post('kode_obat',TRUE),
-		'nama_obat' => $this->input->post('nama_obat',TRUE),
-		'jenis_obat' => $this->input->post('jenis_obat',TRUE),
-		'dosis_aturan_obat' => $this->input->post('dosis_aturan_obat',TRUE),
-        'satuan' => $this->input->post('satuan',TRUE),
-
-	    );
+				'kode_obat' => $this->input->post('kode_obat',TRUE),
+				'nama_obat' => $this->input->post('nama_obat',TRUE),
+				'jenis_obat' => $this->input->post('jenis_obat',TRUE),
+				'dosis_aturan_obat' => $this->input->post('dosis_aturan_obat',TRUE),
+				'satuan' => $this->input->post('satuan',TRUE),
+			);
 
             $this->Tbl_obat_model->insert($data);
             $this->session->set_flashdata('message', '<div class="alert alert-success">Data Berhasil Masuk
@@ -86,17 +85,15 @@ class Dataobat extends CI_Controller
         $row = $this->Tbl_obat_model->get_by_id($id);
 
         if ($row) {
-            $data = array(
-                'button' => 'Update',
-                'action' => site_url('dataobat/update_action'),
-		'kode_obat' => set_value('kode_obat', $row->kode_obat),
-		'nama_obat' => set_value('nama_obat', $row->nama_obat),
-		'jenis_obat' => set_value('jenis_obat', $row->jenis_obat),
-		'dosis_aturan_obat' => set_value('dosis_aturan_obat', $row->dosis_aturan_obat),
-        'satuan' => set_value('satuan', $row->satuan),
-
-	    );
-            $this->template->load('template','dataobat/tbl_obat_form', $data);
+			$this->data['button'] 				= 'Update';
+			$this->data['action'] 				= site_url('dataobat/update_action');
+			$this->data['kode_obat'] 			= set_value('kode_obat', $row->kode_obat);
+			$this->data['nama_obat'] 			= set_value('nama_obat', $row->nama_obat);
+			$this->data['jenis_obat'] 			= set_value('jenis_obat', $row->jenis_obat);
+			$this->data['dosis_aturan_obat'] 	= set_value('dosis_aturan_obat', $row->dosis_aturan_obat);
+			$this->data['satuan'] 				= set_value('satuan', $row->satuan);
+			
+			return view('pages/dataobat/tbl_obat_form', $this->data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('dataobat'));
@@ -110,16 +107,16 @@ class Dataobat extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('kode_obat', TRUE));
         } else {
+			$old_kode_obat = $this->input->post('old_kode_obat',TRUE);
             $data = array(
-        'kode_obat' => $this->input->post('kode_obat',TRUE),
-		'nama_obat' => $this->input->post('nama_obat',TRUE),
-		'jenis_obat' => $this->input->post('jenis_obat',TRUE),
-		'dosis_aturan_obat' => $this->input->post('dosis_aturan_obat',TRUE),
-        'satuan' => $this->input->post('satuan',TRUE),
+				'kode_obat' => $this->input->post('kode_obat',TRUE),
+				'nama_obat' => $this->input->post('nama_obat',TRUE),
+				'jenis_obat' => $this->input->post('jenis_obat',TRUE),
+				'dosis_aturan_obat' => $this->input->post('dosis_aturan_obat',TRUE),
+				'satuan' => $this->input->post('satuan',TRUE),
+			);
 
-	    );
-
-            $this->Tbl_obat_model->update($this->input->post('kode_obat', TRUE), $data);
+            $this->Tbl_obat_model->update($old_kode_obat, $data);
             $this->session->set_flashdata('message', '<div class="alert alert-info">Data Berhasil Diupdate
             </div>');       
             redirect(site_url('dataobat'));

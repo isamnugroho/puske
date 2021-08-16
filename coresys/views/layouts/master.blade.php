@@ -7,7 +7,7 @@
 	<!--<![endif]-->
 	<!-- start: HEAD -->
 	<head>
-		<title>Rapido - Responsive Admin Template</title>
+		<title>PUSKESMAS</title>
 		<!-- start: META -->
 		<meta charset="utf-8" />
 		<!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
@@ -60,6 +60,239 @@
                 border-radius: 2px;
             }
         </style>
+		<style>
+			.zoom {
+			  transition: transform 0.01s; /* Animation */
+			}
+			.zoom:hover {
+			  transform: scale(1.0); 
+			}
+			.zoomsmall {
+			  transition: transform 0.01s; /* Animation */
+			}
+			.zoomsmall:hover {
+			  transform: scale(1.05); 
+			  background:;
+			}
+			p.small {
+			  line-height: 1.0;
+			}
+			p.big {
+			  line-height: 1.5;
+			}
+		</style>
+		<style>
+			hanzmobview{
+			  margin: 0 auto;
+			}
+			hanzmobview{
+			  display: inline;
+			}
+
+			@media screen and (max-width: 1024px){
+			hanzmobview{
+				display: none;
+			  }
+			}
+				ul{
+					list-style:none;
+					margin: 0;
+					padding: 0;
+				}
+				a, a:hover, a.active, a:active, a:visited, a:focus{
+					color:#;
+					text-decoration:none;
+				}
+				.exo-menu{
+					width: 100%;
+					float: left;
+					list-style: none;
+				}
+				.exo-menu > li {	display: inline-block;float:left;}
+				.exo-menu > li > a{
+					color: #ccc;
+					text-decoration: none;
+					text-transform: uppercase;
+					border-right: 1px #365670 dotted;
+					-webkit-transition: color 0.2s linear, background 0.2s linear;
+					-moz-transition: color 0.2s linear, background 0.2s linear;
+					-o-transition: color 0.2s linear, background 0.2s linear;
+					transition: color 0.2s linear, background 0.2s linear;
+				}
+				.exo-menu > li > a.active,
+				.exo-menu > li > a:hover,
+				li.drop-down ul > li > a:hover{
+				background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+				z-index: 9999 !important;
+				}
+				.exo-menu i {
+				  float: left;
+				  font-size: 8px;
+				  margin-right: 0px;
+				  line-height: 10px !important;
+				}
+				li.drop-down,
+				.flyout-right,
+				.flyout-left{position:relative;}
+				li.drop-down:before {
+				  content: "";
+				  color: #fff;
+				  font-family: FontAwesome;
+				  font-style: normal;
+				  display: inline;
+				  right: 6px;
+				  top: 0px;
+				  font-size: 14px;
+				}
+				li.drop-down>ul{
+					left: 0px;
+					min-width: 230px;
+
+				}
+				.drop-down-ul{display:none;}
+				.flyout-right>ul,
+				.flyout-left>ul{
+				  top: 0;
+				  min-width: 230px;
+				  display: none;
+				  border-left: 1px solid #ebebeb;
+				  }
+
+				li.drop-down>ul>li>a,
+				.flyout-right ul>li>a ,
+				.flyout-left ul>li>a {
+					color: #000;
+					display: block;
+					padding: 12px 20px;
+					text-decoration: none;
+					background-color: #fff;
+					border-bottom: 1px dotted #000;
+					-webkit-transition: color 0.2s linear, background 0.2s linear;
+					-moz-transition: color 0.2s linear, background 0.2s linear;
+					-o-transition: color 0.2s linear, background 0.2s linear;
+					transition: color 0.2s linear, background 0.2s linear;
+				}
+				.flyout-right ul>li>a ,
+				.flyout-left ul>li>a {
+					border-bottom: 1px dotted #000;
+				}
+
+				/*Blog DropDown*/
+				.Blog{
+					left:0;
+					display:none;
+					color:#fefefe;
+					padding-top:0px;
+					background:#547787;
+					padding-bottom:15px;
+				}
+				.Blog .blog-title{
+					color:#fff;
+					font-size:15px;
+					text-transform:uppercase;
+
+				}
+				.Blog .blog-des{
+					color:#ccc;
+					font-size:90%;
+					margin-top:0px;
+				}
+				.Blog a.view-more{
+					margin-top:0px;
+				}
+				/*Images*/
+				.Images{
+					left:0;
+				   width:100%;
+					 display:none;
+					color:#fefefe;
+					padding-top:0px;
+					background:#547787;
+					padding-bottom:15px;
+				}
+				.Images h4 {
+				  font-size: 15px;
+				  margin-top: 0px;
+				  text-transform: uppercase;
+				}
+				/*common*/
+				.flyout-right ul>li>a ,
+				.flyout-left ul>li>a,
+				.flyout-mega-wrap,
+				.mega-menu{
+					background-color: #fff;
+				}
+
+				/*hover*/
+				.Blog:hover,
+				.Images:hover,
+				.mega-menu:hover,
+				.drop-down-ul:hover,
+				li.flyout-left>ul:hover,
+				li.flyout-right>ul:hover,
+				.flyout-mega-wrap:hover,
+				li.flyout-left a:hover +ul,
+				li.flyout-right a:hover +ul,
+				.blog-drop-down >a:hover+.Blog,
+				li.drop-down>a:hover +.drop-down-ul,
+				.images-drop-down>a:hover +.Images,
+				.mega-drop-down a:hover+.mega-menu,
+				li.flyout-mega>a:hover +.flyout-mega-wrap{
+					display:block;
+				}
+				/*responsive*/
+				 @media (min-width:1024px){
+					.exo-menu > li > a{
+					display:block;
+					padding: 10px 22px;
+				 }
+				.mega-menu, .flyout-mega-wrap, .Images, .Blog,.flyout-right>ul,
+				.flyout-left>ul, li.drop-down>ul{
+						position:absolute;
+				}
+				 .flyout-right>ul{
+					left: 100%;
+					}
+					.flyout-left>ul{
+					right: 100%;
+				}
+				 }
+				@media (max-width:1024px){
+
+					.exo-menu {
+						min-height: 58px;
+						background-color: #23364B;
+						width: 100%;
+					}
+					
+					.exo-menu > li > a{
+						width:100% ;
+						display:none ;
+					
+					}
+					.exo-menu > li{
+						width:100%;
+					}
+					.display.exo-menu > li > a{
+					  display:block ;
+						padding: 20px 22px;
+					}
+					
+				.mega-menu, .Images, .Blog,.flyout-right>ul,
+				.flyout-left>ul, li.drop-down>ul{
+						position:relative;
+				}
+
+				}
+				a.toggle-menu{
+					right: 0px;
+					font-size: 27px;
+					background-color: #ccc;
+					color: #23364B;
+					top: 0px;
+				}
+			</style>
+		
 	</head>
 	<!-- end: HEAD -->
 	<!-- start: BODY -->
@@ -180,7 +413,7 @@
 						</a>
 						<!-- start: LOGO -->
 						<a class="navbar-brand" href="index.html">
-							<img src="<?=BASE_URL?>assets/images/logo.png" alt="Rapido"/>
+							<img src="<?=BASE_URL?>assets/images/.png" alt="PUSKESMAS"/>
 						</a>
 						<!-- end: LOGO -->
 					</div>
@@ -190,7 +423,7 @@
 							<!-- start: USER DROPDOWN -->
 							<li class="dropdown current-user">
 								<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="#">
-									<img src="<?=BASE_URL?>assets/images/avatar-1-small.jpg" class="img-circle" alt=""> <span class="username hidden-xs">Peter Clark</span> <i class="fa fa-caret-down "></i>
+									<img src="<?=BASE_URL?>assets/images/avatar-1-small.jpg" class="img-circle" alt=""> <span class="username hidden-xs">Admin</span> <i class="fa fa-caret-down "></i>
 								</a>
 								<ul class="dropdown-menu dropdown-dark">
 									<li>
@@ -611,7 +844,7 @@
 			<footer class="inner">
 				<div class="footer-inner">
 					<div class="pull-left">
-						2014 &copy; Rapido by cliptheme.
+						2021 &copy; Techmindo.
 					</div>
 					<div class="pull-right">
 						<span class="go-top"><i class="fa fa-chevron-up"></i></span>
@@ -1036,13 +1269,8 @@
 			</div>
 			<!-- end: SUBVIEW SAMPLE CONTENTS -->
 		</div>
-		<!-- start: MAIN JAVASCRIPTS -->
-		<!--[if lt IE 9]>
-		<script src="<?=BASE_URL?>assets/plugins/respond.min.js"></script>
-		<script src="<?=BASE_URL?>assets/plugins/excanvas.min.js"></script>
-		<script type="text/javascript" src="<?=BASE_URL?>assets/plugins/jQuery/jquery-1.11.1.min.js"></script>
-		<![endif]-->
-		<!--[if gte IE 9]><!-->
+
+		
 		<script src="<?=BASE_URL?>assets/plugins/jQuery/jquery-2.1.1.min.js"></script>
 		<!--<![endif]-->
 		<script src="<?=BASE_URL?>assets/plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js"></script>
@@ -1080,8 +1308,16 @@
 		<script src="<?=BASE_URL?>assets/js/subview-examples.js"></script>
 		<!-- end: JAVASCRIPTS REQUIRED FOR SUBVIEW CONTENTS -->
 		<!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
-		<script type="text/javascript" src="<?=BASE_URL?>assets/plugins/select2/select2.min.js"></script>
-		<script type="text/javascript" src="<?=BASE_URL?>assets/js/table-data.js"></script>
+		<script src="<?=BASE_URL?>assets/plugins/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+		<script src="<?=BASE_URL?>assets/plugins/nvd3/lib/d3.v3.js"></script>
+		<script src="<?=BASE_URL?>assets/plugins/nvd3/nv.d3.min.js"></script>
+		<script src="<?=BASE_URL?>assets/plugins/nvd3/src/models/historicalBar.js"></script>
+		<script src="<?=BASE_URL?>assets/plugins/nvd3/src/models/historicalBarChart.js"></script>
+		<script src="<?=BASE_URL?>assets/plugins/nvd3/src/models/stackedArea.js"></script>
+		<script src="<?=BASE_URL?>assets/plugins/nvd3/src/models/stackedAreaChart.js"></script>
+		<script src="<?=BASE_URL?>assets/plugins/jquery.sparkline/jquery.sparkline.js"></script>
+		<script src="<?=BASE_URL?>assets/plugins/easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+		<script src="<?=BASE_URL?>assets/js/index.js"></script>
 		<!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
 		<!-- start: CORE JAVASCRIPTS  -->
 		<script src="<?=BASE_URL?>assets/js/main.js"></script>
@@ -1090,9 +1326,11 @@
 			jQuery(document).ready(function() {
 				Main.init();
 				SVExamples.init();
-				TableData.init();
+				Index.init();
 			});
-		</script>
+		</script>		
+		
+		
 		@yield('javascript')
 	</body>
 	<!-- end: BODY -->

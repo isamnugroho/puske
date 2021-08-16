@@ -5,9 +5,11 @@ if (!defined('BASEPATH'))
 
 class Stokobat extends CI_Controller
 {
+	var $data = array();
     function __construct()
     {
         parent::__construct();
+		$this->data['that'] = $this;
         is_login();
         $this->load->model('Tbl_stok_obat_model');
         $this->load->library('form_validation');

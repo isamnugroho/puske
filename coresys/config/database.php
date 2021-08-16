@@ -78,9 +78,9 @@ $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https"
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'techmind_root',
-	'password' => '@tmidev2021',
-	'database' => 'techmind_puskesmas2021',
+	'username' => (get_domain($actual_link)=='techmindo.co.id' ? 'techmind_root' : 'root'),
+	'password' => (get_domain($actual_link)=='techmindo.co.id' ? '@tmidev2021' : ''),
+	'database' => (get_domain($actual_link)=='techmindo.co.id' ? 'techmind_puskesmas2021' : 'puskesmas2021'),
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
