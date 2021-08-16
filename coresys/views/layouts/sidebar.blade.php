@@ -39,58 +39,29 @@
 		<!-- start: MAIN NAVIGATION MENU -->
 		<ul class="main-navigation-menu">
 			
-			<li style="background: linear-gradient(to bottom, #e52d27,#b31217); color;white; height:50px">
-				<img style="float: left; margin: 10px 10px 0px 10px;" src="<?=base_url()?>assets/img/homelock.png" height="28" width="28" />
-				<span class="menu-item-parent">
-				<p class="small" style="margin: 0px 10px 0px 0px;">
-					<small style="color:white;font-size:14px; margin: 0px 0px 0px 0px; font-weight: bold;">Monitoring System</small><br>
-					<small style="color:white;font-size:10px;">Performance And Productivity</small>
-				</p>
-				</span>					
+			<li style="background: linear-gradient(to bottom, #e52d27,#b31217); color;white; height:30px">
+				
+				
 			</li>
-			<li style="background-image: linear-gradient( 171.8deg,  rgba(5,111,146,1) 13.5%, rgba(6,57,84,1) 78.6% );">
-				<a href="#" class="zoomsmall">
+			
+			<li <?=active($that, array('dashboard', 'paramedis', 'jabatan', 'bidang', 'poli'))?>>
+				<a href="<?=base_url()?>dashboard">
 				<img style="float: left; margin: 0px 10px 0px 0px;" src="<?=base_url()?>assets/img/database.png" height="28" width="28" />
 				<span class="menu-item-parent">
-				<p class="small" style="">
-					<small style="color:white;font-size:14px; margin: 0px 0px 0px 0px; font-weight: bold;">Data Cash Handling </small><br>
-					<small style="color:white;font-size:10px;">CRM CR & CC Management</small>
+				<p class="small" style="margin: 0px 0px 0px 0px;">
+					<small style="color:black;font-size:16px; font-weight: bold;">Dashboard</small><br>
+					<small style="color:black;font-size:12px;">Paramedis, Bidang, & Poli</small>
 				</p>
-				</span>
-				</a>						
-				<ul>
-					<div class="" style="background-image: linear-gradient(to top, #c4c5c7 0%, #dcdddf 52%, #ebebeb 100%); height:30px; margin: 0px 0px 0px 0px;">
-						<b class="hanzicons" style="float: left; margin: 12px 5px 0px 30px;font-size:14px;color:gray;">Data Cash Replanish
-						</b>
-					</div>
-					<li>
-						<a href="<?=base_url()?>cro_master_cashreplenish" class="zoomsmall"><img style="float: left; margin: 3px 5px 0px -10px;" src="<?=base_url()?>seipkon/assets/img/pdf.png" height="15" width="15" />CRM Cash Replanish</a>
-					</li>
-					<li>
-						<a href="<?=base_url()?>cro_all_runsheets" class="zoomsmall"><img style="float: left; margin: 3px 5px 0px -10px;" src="<?=base_url()?>seipkon/assets/img/pdf.png" height="15" width="15" />All Runsheets CR</a>
-					</li>
-					<li>
-						<a href="<?=base_url()?>doccro_cr" class="zoomsmall"><img style="float: left; margin: 3px 5px 0px -10px;" src="<?=base_url()?>seipkon/assets/img/pdf.png" height="15" width="15" />CR Documentation</a>
-					</li>
-					
-				</ul>
-			</li>		
-			
-			
-			
-			<li <?=active($that, 'dashboard')?>>
-				<a href="<?=base_url()?>dashboard">
-				
-				
-				<i class="fa fa-home"></i> <span class="title"> Dashboard </span><span class="label label-default pull-right ">LABEL</span> </a>
+				</span></a>
 			</li>
+
 			<li <?=active($that, array('paramedis', 'jabatan', 'bidang', 'poli'))?>>
 				<a href="javascript:void(0)">
 				<img style="float: left; margin: 0px 10px 0px 0px;" src="<?=base_url()?>assets/img/database.png" height="28" width="28" />
 				<span class="menu-item-parent">
-				<p class="small" style="">
-					<small style="color:white;font-size:14px; margin: 0px 0px 0px 0px; font-weight: bold;">Data Master </small><br>
-					<small style="color:white;font-size:10px;">CRM CR & CC Management</small>
+				<p class="small" style="margin: 0px 0px 0px 0px;">
+					<small style="color:black;font-size:16px; font-weight: bold;">Data Master Petugas</small><br>
+					<small style="color:black;font-size:12px;">Paramedis, Bidang, & Poli</small>
 				</p>
 				</span></a>
 				<ul class="sub-menu">
@@ -117,35 +88,72 @@
 				</ul>
 			</li>
 
-			<li <?=active($that, 'user')?>>
-				<a href="<?=base_url()?>user"><i class="fa fa-user"></i> <span class="title"> Kelola Pengguna </span></a>
+			<li <?=active($that, array('paramedis', 'jabatan', 'bidang', 'poli'))?>>
+				<a href="javascript:void(0)">
+				<img style="float: left; margin: 0px 10px 0px 0px;" src="<?=base_url()?>assets/img/database.png" height="28" width="28" />
+				<span class="menu-item-parent">
+				<p class="small" style="margin: 0px 0px 0px 0px;">
+					<small style="color:black;font-size:16px; font-weight: bold;">Data Master Pegawai</small><br>
+					<small style="color:black;font-size:12px;">Data Pegawai & Operasional</small>
+				</p>
+				</span></a>
+				<ul class="sub-menu">
+					<li <?=active($that, 'pegawai')?>>
+						<a href="<?=base_url()?>pegawai"><i class="fa fa-users"></i> <span class="title"> Data Pegawai </span></a>
+					</li>
+					<li <?=active($that, 'user')?>>
+						<a href="<?=base_url()?>user"><i class="fa fa-user"></i> <span class="title"> Kelola Pengguna </span></a>
+					</li>
+					<li <?=active($that, 'userlevel')?>>
+						<a href="<?=base_url()?>userlevel"><i class="fa fa-users"></i> <span class="title"> Level Pengguna </span></a>
+					</li>
+				</ul>
 			</li>
-			<li <?=active($that, 'userlevel')?>>
-				<a href="<?=base_url()?>userlevel"><i class="fa fa-users"></i> <span class="title"> Level Pengguna </span></a>
+			<li <?=active($that, array('paramedis', 'jabatan', 'bidang', 'poli'))?>>
+				<a href="javascript:void(0)">
+				<img style="float: left; margin: 0px 10px 0px 0px;" src="<?=base_url()?>assets/img/database.png" height="28" width="28" />
+				<span class="menu-item-parent">
+				<p class="small" style="margin: 0px 0px 0px 0px;">
+					<small style="color:black;font-size:16px; font-weight: bold;">Data Master Pasien</small><br>
+					<small style="color:black;font-size:12px;">Pendaftaran & Penanganan Pasien</small>
+				</p>
+				</span></a>
+				<ul class="sub-menu">
+					<li <?=active($that, 'pasien')?>>
+						<a href="<?=base_url()?>pasien"><i class="fa fa-user-plus"></i> <span class="title"> Data Pasien </span></a>
+					</li>
+					<li <?=active($that, 'pendaftaran')?>>
+						<a href="<?=base_url()?>pendaftaran"><i class="fa fa-user-plus"></i> <span class="title"> Data Pendaftaran </span></a>
+					</li>					
+				</ul>
 			</li>
-			<li <?=active($that, 'pegawai')?>>
-				<a href="<?=base_url()?>pegawai"><i class="fa fa-users"></i> <span class="title"> Data Pegawai </span></a>
+			<li <?=active($that, array('paramedis', 'jabatan', 'bidang', 'poli'))?>>
+				<a href="javascript:void(0)">
+				<img style="float: left; margin: 0px 10px 0px 0px;" src="<?=base_url()?>assets/img/database.png" height="28" width="28" />
+				<span class="menu-item-parent">
+				<p class="small" style="margin: 0px 0px 0px 0px;">
+					<small style="color:black;font-size:16px; font-weight: bold;">Data Master Dokter</small><br>
+					<small style="color:black;font-size:12px;">Jadwal Praktek & Data Dokter</small>
+				</p>
+				</span></a>
+				<ul class="sub-menu">
+					<li <?=active($that, 'dokter')?>>
+						<a href="<?=base_url()?>dokter"><i class="fa fa-user-plus"></i> <span class="title"> Data Dokter </span></a>
+					</li>
+					<li <?=active($that, 'jadwalpraktek')?>>
+						<a href="<?=base_url()?>jadwalpraktek"><i class="fa fa-user-plus"></i> <span class="title"> Jadwal Praktek Dokter </span></a>
+					</li>
+				</ul>
 			</li>
-			<li <?=active($that, 'dokter')?>>
-				<a href="<?=base_url()?>dokter"><i class="fa fa-user-plus"></i> <span class="title"> Data Dokter </span></a>
-			</li>
-			<li <?=active($that, 'jadwalpraktek')?>>
-				<a href="<?=base_url()?>jadwalpraktek"><i class="fa fa-user-plus"></i> <span class="title"> Jadwal Praktek Dokter </span></a>
-			</li>
-			<li <?=active($that, 'pasien')?>>
-				<a href="<?=base_url()?>pasien"><i class="fa fa-user-plus"></i> <span class="title"> Data Pasien </span></a>
-			</li>
-			<li <?=active($that, 'pendaftaran')?>>
-				<a href="<?=base_url()?>pendaftaran"><i class="fa fa-user-plus"></i> <span class="title"> Data Pendaftaran </span></a>
-			</li>
-			<li <?=active($that, 'diagnosa')?>>
-				<a href="<?=base_url()?>diagnosa"><i class="fa fa-user-plus"></i> <span class="title"> Data Diagnosa </span></a>
-			</li>
-			<li <?=active($that, 'tindakan')?>>
-				<a href="<?=base_url()?>tindakan"><i class="fa fa-user-plus"></i> <span class="title"> Data Tindakan </span></a>
-			</li>
-			<li <?=active($that, array('stokobat', 'pengadaanobat', 'pengeluaranobat', 'dataobat'))?>>
-				<a href="javascript:void(0)"><i class="fa fa-cogs"></i> <span class="title"> Data Obat </span><i class="icon-arrow"></i> </a>
+			<li <?=active($that, array('paramedis', 'jabatan', 'bidang', 'poli'))?>>
+				<a href="javascript:void(0)">
+				<img style="float: left; margin: 0px 10px 0px 0px;" src="<?=base_url()?>assets/img/database.png" height="28" width="28" />
+				<span class="menu-item-parent">
+				<p class="small" style="margin: 0px 0px 0px 0px;">
+					<small style="color:black;font-size:16px; font-weight: bold;">Data Master Inventory</small><br>
+					<small style="color:black;font-size:12px;">Stok Obat, Pengadaan, & Supplier</small>
+				</p>
+				</span></a>
 				<ul class="sub-menu">
 					<li <?=active($that, 'stokobat')?>>
 						<a href="<?=base_url()?>stokobat">
@@ -167,14 +175,32 @@
 							<span class="title"> Data Obat-obatan </span>
 						</a>
 					</li>
+					<li <?=active($that, 'supplier')?>>
+						<a href="<?=base_url()?>supplier"><span class="title"> Data Supplier </span></a>
+					</li>
+
 				</ul>
 			</li>
-			<li <?=active($that, 'supplier')?>>
-				<a href="<?=base_url()?>supplier"><i class="fa fa-user-plus"></i> <span class="title"> Data Supplier </span></a>
-			</li>
-			<li <?=active($that, array('operasi', 'penangananoperasi'))?>>
-				<a href="javascript:void(0)"><i class="fa fa-th-large"></i> <span class="title"> Data Tindakan Operasi </span><i class="icon-arrow"></i> </a>
+			<li <?=active($that, array('paramedis', 'jabatan', 'bidang', 'poli'))?>>
+				<a href="javascript:void(0)">
+				<img style="float: left; margin: 0px 10px 0px 0px;" src="<?=base_url()?>assets/img/database.png" height="28" width="28" />
+				<span class="menu-item-parent">
+				<p class="small" style="margin: 0px 0px 0px 0px;">
+					<small style="color:black;font-size:16px; font-weight: bold;">Diagnosa & Tindakan</small><br>
+					<small style="color:black;font-size:12px;">Diagnosa, Operasi & Berobat</small>
+				</p>
+				</span></a>
 				<ul class="sub-menu">
+					<li <?=active($that, 'diagnosa')?>>
+						<a href="<?=base_url()?>diagnosa"><i class="fa fa-user-plus"></i> <span class="title"> Data Diagnosa </span></a>
+					</li>
+					<li <?=active($that, 'tindakan')?>>
+						<a href="<?=base_url()?>tindakan"><i class="fa fa-user-plus"></i> <span class="title"> Data Tindakan </span></a>
+					</li>
+					
+					<li <?=active($that, 'tindakanberobat')?>>
+						<a href="<?=base_url()?>tindakanberobat"><i class="fa fa-user-plus"></i> <span class="title"> Data Tindakan Berobat </span></a>
+					</li>
 					<li <?=active($that, 'operasi')?>>
 						<a href="<?=base_url()?>operasi">
 							<span class="title">Data Operasi</span>
@@ -187,14 +213,15 @@
 					</li>
 				</ul>
 			</li>
+			
+			
+
+			
 			<li <?=active($that, 'polikia')?>>
 				<a href="<?=base_url()?>polikia"><i class="fa fa-user-plus"></i> <span class="title"> Data Poli KIA </span></a>
 			</li>
 			<li <?=active($that, 'perbaikangizi')?>>
 				<a href="<?=base_url()?>perbaikangizi"><i class="fa fa-user-plus"></i> <span class="title"> Data Perbaikan Gizi </span></a>
-			</li>
-			<li <?=active($that, 'tindakanberobat')?>>
-				<a href="<?=base_url()?>tindakanberobat"><i class="fa fa-user-plus"></i> <span class="title"> Data Tindakan Berobat </span></a>
 			</li>
 		</ul>
 		<!-- end: MAIN NAVIGATION MENU -->
