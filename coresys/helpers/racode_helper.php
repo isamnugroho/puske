@@ -42,23 +42,23 @@ function rename_string_is_aktif($string){
     
 
 function is_login(){
-    $ci = get_instance();
-    if(!$ci->session->userdata('id_users')){
-        redirect('auth');
-    }else{
-        $modul = $ci->uri->segment(1);
+    // $ci = get_instance();
+    // if(!$ci->session->userdata('id_users')){
+        // redirect('auth');
+    // }else{
+        // $modul = $ci->uri->segment(1);
         
-        $id_user_level = $ci->session->userdata('id_user_level');
-        // dapatkan id menu berdasarkan nama controller
-        $menu = $ci->db->get_where('tbl_menu',array('url'=>$modul))->row_array();
-        $id_menu = $menu['id_menu'];
-        // chek apakah user ini boleh mengakses modul ini
-        $hak_akses = $ci->db->get_where('tbl_hak_akses',array('id_menu'=>$id_menu,'id_user_level'=>$id_user_level));
-        if($hak_akses->num_rows()<1){
-            redirect('blokir');
-            exit;
-        }
-    }
+        // $id_user_level = $ci->session->userdata('id_user_level');
+        // // dapatkan id menu berdasarkan nama controller
+        // $menu = $ci->db->get_where('tbl_menu',array('url'=>$modul))->row_array();
+        // $id_menu = $menu['id_menu'];
+        // // chek apakah user ini boleh mengakses modul ini
+        // $hak_akses = $ci->db->get_where('tbl_hak_akses',array('id_menu'=>$id_menu,'id_user_level'=>$id_user_level));
+        // if($hak_akses->num_rows()<1){
+            // redirect('blokir');
+            // exit;
+        // }
+    // }
 }
 
 function alert($class,$title,$description){
