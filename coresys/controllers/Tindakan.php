@@ -5,9 +5,11 @@ if (!defined('BASEPATH'))
 
 class Tindakan extends CI_Controller
 {
+	var $data = array();
     function __construct()
     {
         parent::__construct();
+		$this->data['that'] = $this;
         is_login();
         $this->load->model('Tbl_tindakan_model');
         $this->load->library('form_validation');        
@@ -16,7 +18,7 @@ class Tindakan extends CI_Controller
 
     public function index()
     {
-        $this->template->load('template','tindakan/tbl_tindakan_list');
+		return view('pages/tindakan/tbl_tindakan_list', $this->data);
     } 
     
     public function json() {
@@ -34,6 +36,7 @@ class Tindakan extends CI_Controller
 		'tindakan_oleh' => $row->tindakan_oleh,
 		'id_poliklinik' => $row->id_poliklinik,
 	    );
+		
             $this->template->load('template','tindakan/tbl_tindakan_read', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
@@ -43,15 +46,14 @@ class Tindakan extends CI_Controller
 
     public function create() 
     {
-        $data = array(
-            'button' => 'Tambah',
-            'action' => site_url('tindakan/create_action'),
-	    'kode_tindakan' => set_value('kode_tindakan'),
-	    'nama_tindakan' => set_value('nama_tindakan'),
-	    'tindakan_oleh' => set_value('tindakan_oleh'),
-	    'id_poliklinik' => set_value('id_poliklinik'),
-	);
-        $this->template->load('template','tindakan/tbl_tindakan_form', $data);
+		$this->data['button'] 				= 'Tambah';
+		$this->data['action'] 				= site_url('tindakan/create_action');
+		$this->data['kode_tindakan'] 		= set_value('kode_tindakan');
+		$this->data['nama_tindakan'] 		= set_value('nama_tindakan');
+		$this->data['tindakan_oleh'] 		= set_value('tindakan_oleh');
+		$this->data['id_poliklinik'] 		= set_value('id_poliklinik');
+	
+		return view('pages/tindakan/tbl_tindakan_form', $this->data);
     }
     
     public function create_action() 
@@ -79,15 +81,14 @@ class Tindakan extends CI_Controller
         $row = $this->Tbl_tindakan_model->get_by_id($id);
 
         if ($row) {
-            $data = array(
-                'button' => 'Update',
-                'action' => site_url('tindakan/update_action'),
-		'kode_tindakan' => set_value('kode_tindakan', $row->kode_tindakan),
-		'nama_tindakan' => set_value('nama_tindakan', $row->nama_tindakan),
-		'tindakan_oleh' => set_value('tindakan_oleh', $row->tindakan_oleh),
-		'id_poliklinik' => set_value('id_poliklinik', $row->id_poliklinik),
-	    );
-            $this->template->load('template','tindakan/tbl_tindakan_form', $data);
+            $this->data['button'] 				= 'Update';
+			$this->data['action'] 				= site_url('tindakan/update_action');
+			$this->data['kode_tindakan'] 		= set_value('kode_tindakan', $row->kode_tindakan);
+			$this->data['nama_tindakan'] 		= set_value('nama_tindakan', $row->nama_tindakan);
+			$this->data['tindakan_oleh'] 		= set_value('tindakan_oleh', $row->tindakan_oleh);
+			$this->data['id_poliklinik'] 		= set_value('id_poliklinik', $row->id_poliklinik);
+		
+			return view('pages/tindakan/tbl_tindakan_form', $this->data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('tindakan'));
@@ -101,13 +102,15 @@ class Tindakan extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('kode_tindakan', TRUE));
         } else {
+			$old_kode_tindakan = $this->input->post('old_kode_tindakan',TRUE);
             $data = array(
-		'nama_tindakan' => $this->input->post('nama_tindakan',TRUE),
-		'tindakan_oleh' => $this->input->post('tindakan_oleh',TRUE),
-		'id_poliklinik' => $this->input->post('id_poliklinik',TRUE),
-	    );
+				'kode_tindakan' => $this->input->post('kode_tindakan',TRUE),
+				'nama_tindakan' => $this->input->post('nama_tindakan',TRUE),
+				'tindakan_oleh' => $this->input->post('tindakan_oleh',TRUE),
+				'id_poliklinik' => $this->input->post('id_poliklinik',TRUE),
+			);
 
-            $this->Tbl_tindakan_model->update($this->input->post('kode_tindakan', TRUE), $data);
+            $this->Tbl_tindakan_model->update($old_kode_tindakan, $data);
             $this->session->set_flashdata('message', '<div class="alert alert-info">Data Berhasil Diupdate
             </div>');                 redirect(site_url('tindakan'));
         }

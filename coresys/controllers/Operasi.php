@@ -5,18 +5,20 @@ if (!defined('BASEPATH'))
 
 class Operasi extends CI_Controller
 {
+	var $data = array();
     function __construct()
     {
         parent::__construct();
+		$this->data['that'] = $this;
         is_login();
         $this->load->model('Tbl_operasi_model');
         $this->load->library('form_validation');        
-	$this->load->library('datatables');
+		$this->load->library('datatables');
     }
 
     public function index()
     {
-        $this->template->load('template','operasi/tbl_operasi_list');
+		return view('pages/operasi/tbl_operasi_list', $this->data);
     } 
     
     public function json() {
@@ -29,12 +31,12 @@ class Operasi extends CI_Controller
         $row = $this->Tbl_operasi_model->get_by_id($id);
         if ($row) {
             $data = array(
-		'kode_operasi' => $row->kode_operasi,
-		'nama_operasi' => $row->nama_operasi,
-		'biaya' => $row->biaya,
-		'tindakan_oleh' => $row->tindakan_oleh,
-	    );
-            $this->template->load('template','operasi/tbl_operasi_read', $data);
+				'kode_operasi' => $row->kode_operasi,
+				'nama_operasi' => $row->nama_operasi,
+				'biaya' => $row->biaya,
+				'tindakan_oleh' => $row->tindakan_oleh,
+			);
+			return view('pages/operasi/tbl_operasi_read', $this->data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('operasi'));
@@ -43,15 +45,14 @@ class Operasi extends CI_Controller
 
     public function create() 
     {
-        $data = array(
-            'button' => 'Tambah',
-            'action' => site_url('operasi/create_action'),
-	    'kode_operasi' => set_value('kode_operasi'),
-	    'nama_operasi' => set_value('nama_operasi'),
-	    'biaya' => set_value('biaya'),
-	    'tindakan_oleh' => set_value('tindakan_oleh'),
-	);
-        $this->template->load('template','operasi/tbl_operasi_form', $data);
+		$this->data['button'] 				= 'Tambah';
+		$this->data['action'] 				= site_url('operasi/create_action');
+		$this->data['kode_operasi'] 		= set_value('kode_operasi');
+		$this->data['nama_operasi'] 		= set_value('nama_operasi');
+		$this->data['biaya'] 				= set_value('biaya');
+		$this->data['tindakan_oleh'] 		= set_value('tindakan_oleh');
+		
+		return view('pages/operasi/tbl_operasi_form', $this->data);
     }
     
     public function create_action() 
@@ -62,11 +63,11 @@ class Operasi extends CI_Controller
             $this->create();
         } else {
             $data = array(
-        'kode_operasi' => $this->input->post('kode_operasi',TRUE),
-		'nama_operasi' => $this->input->post('nama_operasi',TRUE),
-		'biaya' => $this->input->post('biaya',TRUE),
-		'tindakan_oleh' => $this->input->post('tindakan_oleh',TRUE),
-	    );
+				'kode_operasi' => $this->input->post('kode_operasi',TRUE),
+				'nama_operasi' => $this->input->post('nama_operasi',TRUE),
+				'biaya' => $this->input->post('biaya',TRUE),
+				'tindakan_oleh' => $this->input->post('tindakan_oleh',TRUE),
+			);
 
             $this->Tbl_operasi_model->insert($data);
             $this->session->set_flashdata('message', '<div class="alert alert-success">Data Berhasil Masuk
@@ -80,15 +81,14 @@ class Operasi extends CI_Controller
         $row = $this->Tbl_operasi_model->get_by_id($id);
 
         if ($row) {
-            $data = array(
-                'button' => 'Update',
-                'action' => site_url('operasi/update_action'),
-		'kode_operasi' => set_value('kode_operasi', $row->kode_operasi),
-		'nama_operasi' => set_value('nama_operasi', $row->nama_operasi),
-		'biaya' => set_value('biaya', $row->biaya),
-		'tindakan_oleh' => set_value('tindakan_oleh', $row->tindakan_oleh),
-	    );
-            $this->template->load('template','operasi/tbl_operasi_form', $data);
+			$this->data['button'] 				= 'Update';
+			$this->data['action'] 				= site_url('operasi/update_action');
+			$this->data['kode_operasi'] 		= set_value('kode_operasi', $row->kode_operasi);
+			$this->data['nama_operasi'] 		= set_value('nama_operasi', $row->nama_operasi);
+			$this->data['biaya'] 				= set_value('biaya', $row->biaya);
+			$this->data['tindakan_oleh'] 		= set_value('tindakan_oleh', $row->tindakan_oleh);
+		
+			return view('pages/operasi/tbl_operasi_form', $this->data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('operasi'));
@@ -102,14 +102,15 @@ class Operasi extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('kode_operasi', TRUE));
         } else {
+			$old_kode_operasi = $this->input->post('old_kode_operasi',TRUE);
             $data = array(
-        'kode_operasi' => $this->input->post('kode_operasi',TRUE),
-		'nama_operasi' => $this->input->post('nama_operasi',TRUE),
-		'biaya' => $this->input->post('biaya',TRUE),
-		'tindakan_oleh' => $this->input->post('tindakan_oleh',TRUE),
-	    );
+				'kode_operasi' => $this->input->post('kode_operasi',TRUE),
+				'nama_operasi' => $this->input->post('nama_operasi',TRUE),
+				'biaya' => $this->input->post('biaya',TRUE),
+				'tindakan_oleh' => $this->input->post('tindakan_oleh',TRUE),
+			);
 
-            $this->Tbl_operasi_model->update($this->input->post('kode_operasi', TRUE), $data);
+            $this->Tbl_operasi_model->update($old_kode_operasi, $data);
             $this->session->set_flashdata('message', '<div class="alert alert-info">Data Berhasil Diupdate
             </div>');              redirect(site_url('operasi'));
         }

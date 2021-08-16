@@ -118,7 +118,7 @@
 					</li>
 				</ul>
 			</li>
-			<li <?=active($that, 'dataobat')?>>
+			<li <?=active($that, 'supplier')?>>
 				<a href="<?=base_url()?>supplier"><i class="fa fa-user-plus"></i> <span class="title"> Data Supplier </span></a>
 			</li>
 			<li <?=active($that, array('operasi', 'penangananoperasi'))?>>

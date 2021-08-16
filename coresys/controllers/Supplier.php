@@ -5,18 +5,20 @@ if (!defined('BASEPATH'))
 
 class Supplier extends CI_Controller
 {
+	var $data = array();
     function __construct()
     {
         parent::__construct();
+		$this->data['that'] = $this;
         is_login();
         $this->load->model('Tbl_supplier_model');
         $this->load->library('form_validation');        
-	$this->load->library('datatables');
+		$this->load->library('datatables');
     }
 
     public function index()
     {
-        $this->template->load('template','supplier/tbl_supplier_list');
+		return view('pages/supplier/tbl_supplier_list', $this->data);
     } 
     
     public function json() {
@@ -34,7 +36,7 @@ class Supplier extends CI_Controller
 		'alamat' => $row->alamat,
 		'no_telpon' => $row->no_telpon,
 	    );
-            $this->template->load('template','supplier/tbl_supplier_read', $data);
+			return view('pages/supplier/tbl_supplier_read', $this->data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('supplier'));
@@ -43,15 +45,14 @@ class Supplier extends CI_Controller
 
     public function create() 
     {
-        $data = array(
-            'button' => 'Tambah',
-            'action' => site_url('supplier/create_action'),
-	    'kode_supplier' => set_value('kode_supplier'),
-	    'nama_supplier' => set_value('nama_supplier'),
-	    'alamat' => set_value('alamat'),
-	    'no_telpon' => set_value('no_telpon'),
-	);
-        $this->template->load('template','supplier/tbl_supplier_form', $data);
+		$this->data['button'] 				= 'Tambah';
+		$this->data['action'] 				= site_url('supplier/create_action');
+		$this->data['kode_supplier'] 		= set_value('kode_supplier');
+		$this->data['nama_supplier'] 		= set_value('nama_supplier');
+		$this->data['alamat'] 				= set_value('alamat');
+		$this->data['no_telpon'] 			= set_value('no_telpon');
+	
+		return view('pages/supplier/tbl_supplier_form', $this->data);
     }
     
     public function create_action() 
@@ -62,11 +63,11 @@ class Supplier extends CI_Controller
             $this->create();
         } else {
             $data = array(
-        'kode_supplier' => $this->input->post('kode_supplier',TRUE),
-		'nama_supplier' => $this->input->post('nama_supplier',TRUE),
-		'alamat' => $this->input->post('alamat',TRUE),
-		'no_telpon' => $this->input->post('no_telpon',TRUE),
-	    );
+				'kode_supplier' => $this->input->post('kode_supplier',TRUE),
+				'nama_supplier' => $this->input->post('nama_supplier',TRUE),
+				'alamat' => $this->input->post('alamat',TRUE),
+				'no_telpon' => $this->input->post('no_telpon',TRUE),
+			);
 
             $this->Tbl_supplier_model->insert($data);
             $this->session->set_flashdata('message', '<div class="alert alert-success">Data Berhasil Masuk
@@ -79,15 +80,14 @@ class Supplier extends CI_Controller
         $row = $this->Tbl_supplier_model->get_by_id($id);
 
         if ($row) {
-            $data = array(
-                'button' => 'Update',
-                'action' => site_url('supplier/update_action'),
-		'kode_supplier' => set_value('kode_supplier', $row->kode_supplier),
-		'nama_supplier' => set_value('nama_supplier', $row->nama_supplier),
-		'alamat' => set_value('alamat', $row->alamat),
-		'no_telpon' => set_value('no_telpon', $row->no_telpon),
-	    );
-            $this->template->load('template','supplier/tbl_supplier_form', $data);
+			$this->data['button'] 				= 'Update';
+			$this->data['action'] 				= site_url('supplier/update_action');
+			$this->data['kode_supplier'] 		= set_value('kode_supplier', $row->kode_supplier);
+			$this->data['nama_supplier'] 		= set_value('nama_supplier', $row->kode_supplier);
+			$this->data['alamat'] 				= set_value('alamat', $row->kode_supplier);
+			$this->data['no_telpon'] 			= set_value('no_telpon', $row->kode_supplier);
+		
+            return view('pages/supplier/tbl_supplier_form', $this->data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('supplier'));
@@ -101,14 +101,15 @@ class Supplier extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('kode_supplier', TRUE));
         } else {
+			$old_kode_supplier = $this->input->post('old_kode_supplier',TRUE);
             $data = array(
-        'kode_supplier' => $this->input->post('kode_supplier',TRUE),
-		'nama_supplier' => $this->input->post('nama_supplier',TRUE),
-		'alamat' => $this->input->post('alamat',TRUE),
-		'no_telpon' => $this->input->post('no_telpon',TRUE),
-	    );
+				'kode_supplier' => $this->input->post('kode_supplier',TRUE),
+				'nama_supplier' => $this->input->post('nama_supplier',TRUE),
+				'alamat' => $this->input->post('alamat',TRUE),
+				'no_telpon' => $this->input->post('no_telpon',TRUE),
+			);
 
-            $this->Tbl_supplier_model->update($this->input->post('kode_supplier', TRUE), $data);
+            $this->Tbl_supplier_model->update($old_kode_supplier, $data);
             $this->session->set_flashdata('message', '<div class="alert alert-info">Data Berhasil Diupdate
             </div>');              redirect(site_url('supplier'));
         }
