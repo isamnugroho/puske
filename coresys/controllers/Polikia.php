@@ -5,18 +5,20 @@ if (!defined('BASEPATH'))
 
 class Polikia extends CI_Controller
 {
+	var $data = array();
     function __construct()
     {
         parent::__construct();
+		$this->data['that'] = $this;
         is_login();
         $this->load->model('Tbl_kesehatan_ibu_anak_model');
         $this->load->library('form_validation');        
-	$this->load->library('datatables');
+		$this->load->library('datatables');
     }
 
     public function index()
     {
-        $this->template->load('template','polikia/tbl_kesehatan_ibu_anak_list');
+		return view('pages/polikia/tbl_kesehatan_ibu_anak_list', $this->data);
     } 
     
     public function json() {
@@ -28,13 +30,11 @@ class Polikia extends CI_Controller
 
     function pasienauto() {
        autocomplate_json('tbl_pasien', 'nama_pasien');
-
-        }
+	}
 
     function tindakanauto() {
        autocomplate_json('tbl_operasi', 'nama_operasi');
-
-        }
+	}
 
      function autofill(){
 
@@ -77,7 +77,7 @@ class Polikia extends CI_Controller
         // setting jenis font yang akan digunakan
         $pdf->SetFont('Arial', 'B', 16);
 
-        $pdf->Image('http://localhost/puskesmas/assets/foto_profil/logo-rs.jpg', 50, 5, 30);
+        $pdf->Image('http://localhost/2021/puskesmas/assets/foto_profil/logo-rs.jpg', 50, 5, 30);
         //$pdf->Image('', )
         // mencetak string 
         $pdf->Cell(56, 7, '', 0, 0, 'C');
@@ -148,7 +148,7 @@ class Polikia extends CI_Controller
         // setting jenis font yang akan digunakan
         $pdf->SetFont('Arial', 'B', 16);
 
-        $pdf->Image('http://localhost/puskesmas/assets/foto_profil/logo-rs.jpg', 4, 5, 30);
+        $pdf->Image('http://localhost/2021/puskesmas/assets/foto_profil/logo-rs.jpg', 4, 5, 30);
         //$pdf->Image('', a)
         // mencetak string 
         $pdf->Cell(190, 7, 'PUSKESMAS WADAS', 0, 1, 'C');
@@ -217,7 +217,7 @@ class Polikia extends CI_Controller
 		'kembalian' => $row->kembalian,
 		'tgl_tindakan' => $row->tgl_tindakan,
 	    );
-            $this->template->load('template','polikia/tbl_kesehatan_ibu_anak_read', $data);
+			return view('pages/polikia/tbl_kesehatan_ibu_anak_read', $this->data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('polikia'));
@@ -231,25 +231,23 @@ class Polikia extends CI_Controller
 
       $sql_daftar = "SELECT pd.no_rekamedis, pd.no_rawat,ps.nama_pasien FROM tbl_pendaftaran as pd, tbl_pasien as ps WHERE pd.no_rekamedis = ps.no_rekamedis and pd.no_rawat = '$no_rawat'";
 
-        $data = array(
-            'button' => 'Tambah',
-            'action' => site_url('polikia/create_action'),
-	    'id_kia' => set_value('id_kia'),
-	    'nama_pasien' => set_value('nama_pasien'),
-        'no_bpjs' => set_value('no_bpjs'),
-        'status_pasien' => set_value('status_pasien'),
-	    'nama_operasi' => set_value('nama_operasi'),
-	    'biaya' => set_value('biaya'),
-	    'ditangani_oleh' => set_value('ditangani_oleh'),
-	    'dibayar' => set_value('dibayar'),
-	    'kembalian' => set_value('kembalian'),
-        'keterangan' => set_value('keterangan'),
-	    'tgl_tindakan' => set_value('tgl_tindakan'),
-	);
+		$this->data['button'] 			= 'Tambah';
+		$this->data['action'] 			= site_url('polikia/create_action');
+		$this->data['id_kia'] 			= set_value('id_kia');
+		$this->data['nama_pasien'] 		= set_value('nama_pasien');
+		$this->data['no_bpjs'] 			= set_value('no_bpjs');
+		$this->data['status_pasien'] 	= set_value('status_pasien');
+		$this->data['nama_operasi'] 	= set_value('nama_operasi');
+		$this->data['biaya'] 			= set_value('biaya');
+		$this->data['ditangani_oleh'] 	= set_value('ditangani_oleh');
+		$this->data['dibayar'] 			= set_value('dibayar');
+		$this->data['kembalian'] 		= set_value('kembalian');
+		$this->data['keterangan'] 		= set_value('keterangan');
+		$this->data['tgl_tindakan'] 	= set_value('tgl_tindakan');
 
-        $data['pendaftaran'] = $this->db->query($sql_daftar)->row_array();
+        $this->data['pendaftaran'] = $this->db->query($sql_daftar)->row_array();
 
-        $this->template->load('template','polikia/tbl_kesehatan_ibu_anak_form', $data);
+		return view('pages/polikia/tbl_kesehatan_ibu_anak_form', $this->data);
     }
     
     public function create_action() 
@@ -286,22 +284,21 @@ class Polikia extends CI_Controller
         $row = $this->Tbl_kesehatan_ibu_anak_model->get_by_id($id);
 
         if ($row) {
-            $data = array(
-                'button' => 'Update',
-                'action' => site_url('polikia/update_action'),
-		'id_kia' => set_value('id_kia', $row->id_kia),
-		'nama_pasien' => set_value('nama_pasien', $row->nama_pasien),
-        'no_bpjs' => set_value('no_bpjs', $row->nama_pasien),
-        'status_pasien' => set_value('nama_pasien', $row->status_pasien),
-		'nama_operasi' => set_value('nama_operasi', $row->nama_operasi),
-		'biaya' => set_value('biaya', $row->biaya),
-		'ditangani_oleh' => set_value('ditangani_oleh', $row->ditangani_oleh),
-		'dibayar' => set_value('dibayar', $row->dibayar),
-		'kembalian' => set_value('kembalian', $row->kembalian),
-        'keterangan' => set_value('keterangan', $row->keterangan),
-		'tgl_tindakan' => set_value('tgl_tindakan', $row->tgl_tindakan),
-	    );
-            $this->template->load('template','polikia/tbl_kesehatan_ibu_anak_form', $data);
+			$this->data['button'] 			= 'Update';
+			$this->data['action'] 			= site_url('polikia/update_action');
+			$this->data['id_kia'] 			= set_value('id_kia', $row->id_kia);
+			$this->data['nama_pasien'] 		= set_value('nama_pasien', $row->nama_pasien);
+			$this->data['no_bpjs'] 			= set_value('no_bpjs', $row->no_bpjs);
+			$this->data['status_pasien'] 	= set_value('status_pasien', $row->status_pasien);
+			$this->data['nama_operasi'] 	= set_value('nama_operasi', $row->nama_operasi);
+			$this->data['biaya'] 			= set_value('biaya', $row->biaya);
+			$this->data['ditangani_oleh'] 	= set_value('ditangani_oleh', $row->ditangani_oleh);
+			$this->data['dibayar'] 			= set_value('dibayar', $row->dibayar);
+			$this->data['kembalian'] 		= set_value('kembalian', $row->kembalian);
+			$this->data['keterangan'] 		= set_value('keterangan', $row->keterangan);
+			$this->data['tgl_tindakan'] 	= set_value('tgl_tindakan', $row->tgl_tindakan);
+		
+			return view('pages/polikia/tbl_kesehatan_ibu_anak_form', $this->data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('polikia'));

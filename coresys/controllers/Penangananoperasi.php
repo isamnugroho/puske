@@ -5,9 +5,11 @@ if (!defined('BASEPATH'))
 
 class Penangananoperasi extends CI_Controller
 {
+	var $data = array();
     function __construct()
     {
         parent::__construct();
+		$this->data['that'] = $this;
         is_login();
         $this->load->model('Tbl_penanganan_operasi_model');
         $this->load->library('form_validation');        
@@ -16,7 +18,7 @@ class Penangananoperasi extends CI_Controller
 
     public function index()
     {
-        $this->template->load('template','penangananoperasi/tbl_penanganan_operasi_list');
+		return view('pages/penangananoperasi/tbl_penanganan_operasi_list', $this->data);
     } 
     
     public function json() {
@@ -41,7 +43,7 @@ class Penangananoperasi extends CI_Controller
         // setting jenis font yang akan digunakan
         $pdf->SetFont('Arial', 'B', 16);
 
-        $pdf->Image('http://localhost/puskesmas/assets/foto_profil/logo-rs.jpg', 50, 5, 30);
+        $pdf->Image('http://localhost/2021/puskesmas/assets/foto_profil/logo-rs.jpg', 50, 5, 30);
         //$pdf->Image('', )
         // mencetak string 
         $pdf->Cell(45, 7, '', 0, 0, 'C');
@@ -111,7 +113,7 @@ class Penangananoperasi extends CI_Controller
         // setting jenis font yang akan digunakan
         $pdf->SetFont('Arial', 'B', 16);
 
-        $pdf->Image('http://localhost/puskesmas/assets/foto_profil/logo-rs.jpg', 4, 5, 30);
+        $pdf->Image('http://localhost/2021/puskesmas/assets/foto_profil/logo-rs.jpg', 4, 5, 30);
         //$pdf->Image('', a)
         // mencetak string 
         $pdf->Cell(190, 7, 'PUSKESMAS WADAS', 0, 1, 'C');
@@ -182,7 +184,7 @@ class Penangananoperasi extends CI_Controller
         'keterangan' => $row->keterangan,
 		'tgl_operasi' => $row->tgl_operasi,
 	    );
-            $this->template->load('template','penangananoperasi/tbl_penanganan_operasi_read', $data);
+			return view('pages/penangananoperasi/tbl_penanganan_operasi_read', $this->data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('penangananoperasi'));
@@ -241,22 +243,21 @@ class Penangananoperasi extends CI_Controller
     }
     public function create() 
     {
-        $data = array(
-            'button' => 'Tambah',
-            'action' => site_url('penangananoperasi/create_action'),
-	    'id_penanganan' => set_value('id_penanganan'),
-	    'nama_pasien' => set_value('nama_pasien'),
-        'no_bpjs' => set_value('no_bpjs'),
-        'status_pasien' => set_value('status_pasien'),
-	    'nama_operasi' => set_value('nama_operasi'),
-	    'biaya' => set_value('biaya'),
-	    'ditangani_oleh' => set_value('ditangani_oleh'),
-	    'dibayar' => set_value('dibayar'),
-	    'kembalian' => set_value('kembalian'),
-        'keterangan' => set_value('keterangan'),
-	    'tgl_operasi' => set_value('tgl_operasi'),
-	);
-        $this->template->load('template','penangananoperasi/tbl_penanganan_operasi_form', $data);
+		$this->data['button'] 			= 'Tambah';
+		$this->data['action'] 			= site_url('penangananoperasi/create_action');
+		$this->data['id_penanganan'] 	= set_value('id_penanganan');
+		$this->data['nama_pasien'] 		= set_value('nama_pasien');
+		$this->data['no_bpjs'] 			= set_value('no_bpjs');
+		$this->data['status_pasien'] 	= set_value('status_pasien');
+		$this->data['nama_operasi'] 	= set_value('nama_operasi');
+		$this->data['biaya'] 			= set_value('biaya');
+		$this->data['ditangani_oleh'] 	= set_value('ditangani_oleh');
+		$this->data['dibayar'] 			= set_value('dibayar');
+		$this->data['kembalian'] 		= set_value('kembalian');
+		$this->data['keterangan'] 		= set_value('keterangan');
+		$this->data['tgl_operasi'] 		= set_value('tgl_operasi');
+	
+		return view('pages/penangananoperasi/tbl_penanganan_operasi_form', $this->data);
     }
     
     public function create_action() 
@@ -270,18 +271,17 @@ class Penangananoperasi extends CI_Controller
 
         $tgl = $this->input->post('tgl_operasi',TRUE);
             $data = array(
-		'nama_pasien' => $this->input->post('nama_pasien',TRUE),
-        'no_bpjs' => $this->input->post('nama_pasien',TRUE),
-        'status_pasien' => $this->input->post('status_pasien',TRUE),
-		'nama_operasi' => $this->input->post('nama_operasi',TRUE),
-		'biaya' => $this->input->post('biaya',TRUE),
-		'ditangani_oleh' => $this->input->post('ditangani_oleh',TRUE),
-		'dibayar' => $this->input->post('dibayar',TRUE),
-		'kembalian' => $this->input->post('kembalian',TRUE),
-        'keterangan' => $this->input->post('keterangan',TRUE),
-        'tgl_operasi' => date('d-m-Y', strtotime($tgl))
-
-	    );
+				'nama_pasien' => $this->input->post('nama_pasien',TRUE),
+				'no_bpjs' => $this->input->post('nama_pasien',TRUE),
+				'status_pasien' => $this->input->post('status_pasien',TRUE),
+				'nama_operasi' => $this->input->post('nama_operasi',TRUE),
+				'biaya' => $this->input->post('biaya',TRUE),
+				'ditangani_oleh' => $this->input->post('ditangani_oleh',TRUE),
+				'dibayar' => $this->input->post('dibayar',TRUE),
+				'kembalian' => $this->input->post('kembalian',TRUE),
+				'keterangan' => $this->input->post('keterangan',TRUE),
+				'tgl_operasi' => date('d-m-Y', strtotime($tgl))
+			);
 
             $this->Tbl_penanganan_operasi_model->insert($data);
             $this->session->set_flashdata('message', '<div class="alert alert-success">Data Berhasil Masuk
@@ -295,22 +295,21 @@ class Penangananoperasi extends CI_Controller
         $row = $this->Tbl_penanganan_operasi_model->get_by_id($id);
 
         if ($row) {
-            $data = array(
-                'button' => 'Update',
-                'action' => site_url('penangananoperasi/update_action'),
-		'id_penanganan' => set_value('id_penanganan', $row->id_penanganan),
-		'nama_pasien' => set_value('nama_pasien', $row->nama_pasien),
-        'no_bpjs' => set_value('no_bpjs', $row->nama_pasien),
-        'status_pasien' => set_value('nama_pasien', $row->status_pasien),
-		'nama_operasi' => set_value('nama_operasi', $row->nama_operasi),
-		'biaya' => set_value('biaya', $row->biaya),
-		'ditangani_oleh' => set_value('ditangani_oleh', $row->ditangani_oleh),
-		'dibayar' => set_value('dibayar', $row->dibayar),
-		'kembalian' => set_value('kembalian', $row->kembalian),
-        'keterangan' => set_value('keterangan', $row->keterangan),
-		'tgl_operasi' => set_value('tgl_operasi', $row->tgl_operasi),
-	    );
-            $this->template->load('template','penangananoperasi/tbl_penanganan_operasi_form', $data);
+			$this->data['button'] 			= 'Tambah';
+			$this->data['action'] 			= site_url('penangananoperasi/create_action');
+			$this->data['id_penanganan'] 	= set_value('id_penanganan', $row->id_penanganan);
+			$this->data['nama_pasien'] 		= set_value('nama_pasien', $row->nama_pasien);
+			$this->data['no_bpjs'] 			= set_value('no_bpjs', $row->no_bpjs);
+			$this->data['status_pasien'] 	= set_value('status_pasien', $row->status_pasien);
+			$this->data['nama_operasi'] 	= set_value('nama_operasi', $row->nama_operasi);
+			$this->data['biaya'] 			= set_value('biaya', $row->biaya);
+			$this->data['ditangani_oleh'] 	= set_value('ditangani_oleh', $row->ditangani_oleh);
+			$this->data['dibayar'] 			= set_value('dibayar', $row->dibayar);
+			$this->data['kembalian'] 		= set_value('kembalian', $row->kembalian);
+			$this->data['keterangan'] 		= set_value('keterangan', $row->keterangan);
+			$this->data['tgl_operasi'] 		= set_value('tgl_operasi', $row->tgl_operasi);
+			
+			return view('pages/penangananoperasi/tbl_penanganan_operasi_form', $this->data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('penangananoperasi'));
@@ -328,18 +327,17 @@ class Penangananoperasi extends CI_Controller
             $this->update($this->input->post('id_penanganan', TRUE));
         } else {
             $data = array(
-		'nama_pasien' => $this->input->post('nama_pasien',TRUE),
-        'no_bpjs' => $this->input->post('no_bpjs',TRUE),
-        'status_pasien' => $this->input->post('status_pasien',TRUE),
-		'nama_operasi' => $this->input->post('nama_operasi',TRUE),
-		'biaya' => $this->input->post('biaya',TRUE),
-		'ditangani_oleh' => $this->input->post('ditangani_oleh',TRUE),
-		'dibayar' => $this->input->post('dibayar',TRUE),
-		'kembalian' => $this->input->post('kembalian',TRUE),
-        'keterangan' => $this->input->post('keterangan',TRUE),
-        'tgl_operasi' => date('d-m-Y', strtotime($tgl_operasi)),
-
-	    );
+				'nama_pasien' => $this->input->post('nama_pasien',TRUE),
+				'no_bpjs' => $this->input->post('no_bpjs',TRUE),
+				'status_pasien' => $this->input->post('status_pasien',TRUE),
+				'nama_operasi' => $this->input->post('nama_operasi',TRUE),
+				'biaya' => $this->input->post('biaya',TRUE),
+				'ditangani_oleh' => $this->input->post('ditangani_oleh',TRUE),
+				'dibayar' => $this->input->post('dibayar',TRUE),
+				'kembalian' => $this->input->post('kembalian',TRUE),
+				'keterangan' => $this->input->post('keterangan',TRUE),
+				'tgl_operasi' => date('d-m-Y', strtotime($tgl_operasi)),
+			);
 
             $this->Tbl_penanganan_operasi_model->update($this->input->post('id_penanganan', TRUE), $data);
             $this->session->set_flashdata('message', '<div class="alert alert-info">Data Berhasil Diupdate

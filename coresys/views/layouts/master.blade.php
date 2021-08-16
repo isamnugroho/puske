@@ -49,6 +49,17 @@
 		<link rel="stylesheet" href="<?=BASE_URL?>assets/css/print.css" type="text/css" media="print"/>
 		<!-- end: CORE CSS -->
 		<link rel="shortcut icon" href="<?=BASE_URL?>favicon.ico" />
+		
+		<style type="text/css">
+            .ui-autocomplete {
+                position: absolute;
+                z-index: 2150000000 !important;
+                cursor: default;
+                border: 2px solid #ccc;
+                padding: 5px 0;
+                border-radius: 2px;
+            }
+        </style>
 	</head>
 	<!-- end: HEAD -->
 	<!-- start: BODY -->

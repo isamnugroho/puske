@@ -5,18 +5,20 @@ if (!defined('BASEPATH'))
 
 class Perbaikangizi extends CI_Controller
 {
+	var $data = array();
     function __construct()
     {
         parent::__construct();
+		$this->data['that'] = $this;
         is_login();
         $this->load->model('Tbl_perbaikan_gizi_model');
         $this->load->library('form_validation');        
-	$this->load->library('datatables');
+		$this->load->library('datatables');
     }
 
     public function index()
     {
-        $this->template->load('template','perbaikangizi/tbl_perbaikan_gizi_list');
+		return view('pages/perbaikangizi/tbl_perbaikan_gizi_list', $this->data);
     } 
     
     function anakauto() {
@@ -71,7 +73,7 @@ class Perbaikangizi extends CI_Controller
         // setting jenis font yang akan digunakan
         $pdf->SetFont('Arial', 'B', 16);
 
-        $pdf->Image('http://localhost/puskesmas/assets/foto_profil/logo-rs.jpg', 50, 5, 30);
+        $pdf->Image('http://localhost/2021/puskesmas/assets/foto_profil/logo-rs.jpg', 50, 5, 30);
         //$pdf->Image('', )
         // mencetak string 
         $pdf->Cell(45, 7, '', 0, 0, 'C');
@@ -142,7 +144,7 @@ class Perbaikangizi extends CI_Controller
 		'satuan' => $row->satuan,
 		'tanggal' => $row->tanggal,
 	    );
-            $this->template->load('template','perbaikangizi/tbl_perbaikan_gizi_read', $data);
+			return view('pages/perbaikangizi/tbl_perbaikan_gizi_read', $this->data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('perbaikangizi'));
@@ -151,18 +153,17 @@ class Perbaikangizi extends CI_Controller
 
     public function create() 
     {
-        $data = array(
-            'button' => 'Tambah',
-            'action' => site_url('perbaikangizi/create_action'),
-	    'id_gizi' => set_value('id_gizi'),
-	    'nama_anak' => set_value('nama_anak'),
-	    'nama_tindakan' => set_value('nama_tindakan'),
-	    'nama_obat' => set_value('nama_obat'),
-	    'jumlah' => set_value('jumlah'),
-	    'satuan' => set_value('satuan'),
-	    'tanggal' => set_value('tanggal'),
-	);
-        $this->template->load('template','perbaikangizi/tbl_perbaikan_gizi_form', $data);
+		$this->data['button'] 			= 'Tambah';
+		$this->data['action'] 			= site_url('perbaikangizi/create_action');
+		$this->data['id_gizi'] 			= set_value('id_gizi');
+		$this->data['nama_anak'] 		= set_value('nama_anak');
+		$this->data['nama_tindakan'] 	= set_value('nama_tindakan');
+		$this->data['nama_obat'] 		= set_value('nama_obat');
+		$this->data['jumlah'] 			= set_value('jumlah');
+		$this->data['satuan'] 			= set_value('satuan');
+		$this->data['tanggal'] 			= set_value('tanggal');
+       
+		return view('pages/perbaikangizi/tbl_perbaikan_gizi_form', $this->data);
     }
     
     public function create_action() 
@@ -175,13 +176,13 @@ class Perbaikangizi extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'nama_anak' => $this->input->post('nama_anak',TRUE),
-		'nama_tindakan' => $this->input->post('nama_tindakan',TRUE),
-		'nama_obat' => $this->input->post('nama_obat',TRUE),
-		'jumlah' => $this->input->post('jumlah',TRUE),
-		'satuan' => $this->input->post('satuan',TRUE),
-		'tanggal' => date('d-m-Y', strtotime($tanggal)),
-	    );
+				'nama_anak' => $this->input->post('nama_anak',TRUE),
+				'nama_tindakan' => $this->input->post('nama_tindakan',TRUE),
+				'nama_obat' => $this->input->post('nama_obat',TRUE),
+				'jumlah' => $this->input->post('jumlah',TRUE),
+				'satuan' => $this->input->post('satuan',TRUE),
+				'tanggal' => date('d-m-Y', strtotime($tanggal)),
+			);
 
             $this->Tbl_perbaikan_gizi_model->insert($data);
            $this->session->set_flashdata('message', '<div class="alert alert-success">Data Berhasil Masuk
@@ -195,18 +196,17 @@ class Perbaikangizi extends CI_Controller
         $row = $this->Tbl_perbaikan_gizi_model->get_by_id($id);
 
         if ($row) {
-            $data = array(
-                'button' => 'Update',
-                'action' => site_url('perbaikangizi/update_action'),
-		'id_gizi' => set_value('id_gizi', $row->id_gizi),
-		'nama_anak' => set_value('nama_anak', $row->nama_anak),
-		'nama_tindakan' => set_value('nama_tindakan', $row->nama_tindakan),
-		'nama_obat' => set_value('nama_obat', $row->nama_obat),
-		'jumlah' => set_value('jumlah', $row->jumlah),
-		'satuan' => set_value('satuan', $row->satuan),
-		'tanggal' => set_value('tanggal', $row->tanggal),
-	    );
-            $this->template->load('template','perbaikangizi/tbl_perbaikan_gizi_form', $data);
+			$this->data['button'] 			= 'Update';
+			$this->data['action'] 			= site_url('perbaikangizi/update_action');
+			$this->data['id_gizi'] 			= set_value('id_gizi', $row->id_gizi);
+			$this->data['nama_anak'] 		= set_value('nama_anak', $row->nama_anak);
+			$this->data['nama_tindakan'] 	= set_value('nama_tindakan', $row->nama_tindakan);
+			$this->data['nama_obat'] 		= set_value('nama_obat', $row->nama_obat);
+			$this->data['jumlah'] 			= set_value('jumlah', $row->jumlah);
+			$this->data['satuan'] 			= set_value('satuan', $row->satuan);
+			$this->data['tanggal'] 			= set_value('tanggal', $row->tanggal);
+		
+			return view('pages/perbaikangizi/tbl_perbaikan_gizi_form', $this->data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('perbaikangizi'));
